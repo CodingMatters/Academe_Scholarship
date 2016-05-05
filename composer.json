@@ -1,0 +1,32 @@
+{
+    "name": "codingmatters/academe-scholarship",
+    "description": "Abstract Academe Scholarship Module",
+    "keywords": ["academe scholarship"],
+    "homepage": "https://chronicles.codingmatters.io/academe/scholarship/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gab Amba",
+            "email": "gamba@gabbydgab.com",
+            "homepage": "http://www.gabbydgab.com/"
+        }
+    ],
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "roave/security-advisories": "dev-master",
+        "filp/whoops": "^2.0"
+    },
+    "require-dev": {        
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Academe\\Scholarship": "src/Scholarship/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Academe\\ScholarshipTest\\": "tests/"
+        }
+    }
+}
