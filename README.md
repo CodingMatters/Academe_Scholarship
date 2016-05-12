@@ -1,2 +1,2 @@
-# Academe_Scholarship
-Academic Scholarships
+# Academe Scholarship
+Vanilla Integration in Bestowing Academic Scholarships

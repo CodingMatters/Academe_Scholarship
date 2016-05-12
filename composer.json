@@ -1,6 +1,6 @@
 {
     "name": "codingmatters/academe-scholarship",
-    "description": "Abstract Academe Scholarship Module",
+    "description": "Vanilla Integration in Bestowing Academic Scholarships",
     "keywords": ["academe scholarship"],
     "homepage": "https://chronicles.codingmatters.io/academe/scholarship/",
     "license": "MIT",
@@ -13,20 +13,40 @@
     ],
     "require": {
         "php": "^5.6 || ^7.0",
-        "roave/security-advisories": "dev-master",
-        "filp/whoops": "^2.0"
+        "roave/security-advisories": "dev-master"
     },
     "require-dev": {        
-        "squizlabs/php_codesniffer": "^2.3"
+        "phpunit/phpunit": "^4.8 || ^5.3",
+        "squizlabs/php_codesniffer": "^2.3",
+        "zendframework/zend-expressive": "^1.0",
+        "zendframework/zend-expressive-helpers": "^2.0",
+        "zendframework/zend-stdlib": "^2.7 || ^3.0",
+        "zendframework/zend-expressive-fastroute": "^1.0",
+        "zendframework/zend-servicemanager": "^2.7.3 || ^3.0",
+        "ocramius/proxy-manager": "^1.0 || ^2.0",
+        "zendframework/zend-expressive-zendviewrenderer": "^1.0",
+        "filp/whoops": "^2.0",
+        "zendframework/zend-mvc": "^2.5"
     },
     "autoload": {
+        "classmap": ["./Module.php"],
         "psr-4": {
-            "Academe\\Scholarship": "src/Scholarship/"
+            "Scholarship\\": "src/Scholarship/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Academe\\ScholarshipTest\\": "tests/"
+            "ScholarshipTest\\": "tests/ScholarshipTest/"
         }
-    }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit"
+    },
+    "minimum-stability": "stable"
 }
