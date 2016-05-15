@@ -25,43 +25,22 @@
  * THE SOFTWARE.
  */
 
-namespace Scholarship\Action;
+namespace Academe\Scholarship\Factory;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Expressive\Router;
-use Zend\Expressive\Template;
+use Academe\Scholarship\Action\DashboardPageAction;
+use Interop\Container\ContainerInterface;
+use Zend\Expressive\Router\RouterInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
-class DashboardPageAction
+class DashboardPageFactory
 {
-    /**
- * @var Router\RouterInterface
-*/
-    private $router;
-
-    /**
- * @var Template\TemplateRendererInterface
-*/
-    private $template;
-
-    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
+    public function __invoke(ContainerInterface $container)
     {
-        $this->router   = $router;
-        $this->template = $template;
-    }
+        $router   = $container->get(RouterInterface::class);
+        $template = ($container->has(TemplateRendererInterface::class))
+            ? $container->get(TemplateRendererInterface::class)
+            : null;
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
-    {
-        if (!$this->template) {
-            return new JsonResponse(
-                [
-                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
-                'docsUrl' => 'zend-expressive.readthedocs.org',
-                ]
-            );
-        }
-
-        return new HtmlResponse($this->template->render('prospectus::dashboard-page', ["yolo" => "YOLO!!!"]));
+        return new DashboardPageAction($router, $template);
     }
 }

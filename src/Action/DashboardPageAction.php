@@ -4,7 +4,7 @@
  * The MIT License
  *
  * Copyright 2016 Coding Matters, Inc.
- * Author  Gab Amba <gamba@gabbydgab.com>
+ * Author: Gab Amba <gamba@gabbydgab.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,27 +25,43 @@
  * THE SOFTWARE.
  */
 
-namespace ScholarshipTest;
+namespace Academe\Scholarship\Action;
 
-use Scholarship\Module as ModuleConfig;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Router;
+use Zend\Expressive\Template;
 
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class DashboardPageAction
 {
     /**
- * Academe\Prospectus\Module 
+ * @var Router\RouterInterface
 */
-    private $module;
-    
-    public function setUp()
-    {
-        $this->module = new ModuleConfig();
-    }
+    private $router;
 
     /**
-     * @test
-     */
-    public function checkRouterConfig()
+ * @var Template\TemplateRendererInterface
+*/
+    private $template;
+
+    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
     {
-        $this->assertArrayHasKey('router', $this->module->getConfig());
+        $this->router   = $router;
+        $this->template = $template;
+    }
+
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
+    {
+        if (!$this->template) {
+            return new JsonResponse(
+                [
+                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
+                'docsUrl' => 'zend-expressive.readthedocs.org',
+                ]
+            );
+        }
+
+        return new HtmlResponse($this->template->render('prospectus::dashboard-page', ["yolo" => "YOLO!!!"]));
     }
 }

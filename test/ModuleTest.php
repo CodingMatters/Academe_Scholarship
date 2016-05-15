@@ -4,7 +4,7 @@
  * The MIT License
  *
  * Copyright 2016 Coding Matters, Inc.
- * Author: Gab Amba <gamba@gabbydgab.com>.
+ * Author  Gab Amba <gamba@gabbydgab.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,22 +25,27 @@
  * THE SOFTWARE.
  */
 
-namespace Scholarship\Factory;
+namespace Academe\ScholarshipTest;
 
-use Academe\Prospectus\Action\DashboardPageAction;
-use Interop\Container\ContainerInterface;
-use Zend\Expressive\Router\RouterInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use Academe\Scholarship\Module as ModuleConfig;
 
-class DashboardPageFactory
+class ModuleTest extends \PHPUnit_Framework_TestCase
 {
-    public function __invoke(ContainerInterface $container)
+    /**
+ * Academe\Prospectus\Module 
+*/
+    private $module;
+    
+    public function setUp()
     {
-        $router   = $container->get(RouterInterface::class);
-        $template = ($container->has(TemplateRendererInterface::class))
-            ? $container->get(TemplateRendererInterface::class)
-            : null;
+        $this->module = new ModuleConfig();
+    }
 
-        return new DashboardPageAction($router, $template);
+    /**
+     * @test
+     */
+    public function checkRouterConfig()
+    {
+        $this->assertArrayHasKey('router', $this->module->getConfig());
     }
 }
