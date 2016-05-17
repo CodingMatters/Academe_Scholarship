@@ -1,10 +1,10 @@
 <?php
 
-/*
+/**
  * The MIT License
  *
  * Copyright 2016 Coding Matters, Inc.
- * Author: Gab Amba <gamba@gabbydgab.com>.
+ * Author  Gab Amba <gamba@gabbydgab.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,43 +25,23 @@
  * THE SOFTWARE.
  */
 
-namespace Academe\Scholarship\Action;
+namespace Academe\Scholarship\Page;
 
-use Psr\Http\Message\ResponseInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Expressive\Router\RouterInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Expressive\Router;
-use Zend\Expressive\Template;
+use Psr\Http\Message\ResponseInterface;
 
-class DashboardPageAction
+final class IndexPage extends AbstractPage
 {
-    /**
- * @var Router\RouterInterface
-*/
-    private $router;
-
-    /**
- * @var Template\TemplateRendererInterface
-*/
-    private $template;
-
-    public function __construct(Router\RouterInterface $router, Template\TemplateRendererInterface $template = null)
+    public function __construct(RouterInterface $router, TemplateRendererInterface $template = null)
     {
-        $this->router   = $router;
-        $this->template = $template;
+        parent::__construct($router, $template);
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
+    public function dispatch(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        if (!$this->template) {
-            return new JsonResponse(
-                [
-                'welcome' => 'Congratulations! You have installed the zend-expressive skeleton application.',
-                'docsUrl' => 'zend-expressive.readthedocs.org',
-                ]
-            );
-        }
-
-        return new HtmlResponse($this->template->render('prospectus::dashboard-page', ["yolo" => "YOLO!!!"]));
+        return new HtmlResponse($this->template->render("scholarship::index", $this->data));
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-/*
+/**
  * The MIT License
  *
  * Copyright 2016 Coding Matters, Inc.
- * Author: Gab Amba <gamba@gabbydgab.com>.
+ * Author  Gab Amba <gamba@gabbydgab.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,20 +27,38 @@
 
 namespace Academe\Scholarship\Factory;
 
-use Academe\Scholarship\Action\DashboardPageAction;
-use Interop\Container\ContainerInterface;
-use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\Expressive\Router\RouterInterface;
+use Interop\Container\ContainerInterface;
 
-class DashboardPageFactory
+/**
+ * This factory create HTML PAGE ONLY.
+ *
+ * @todo Recommend to create separate factories which do not share any common feature.
+ */
+final class PageFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container)
+    /**
+     * This pattern can often replace abstract factories, and is more performant:
+     *
+     *   1. Lookups for services do not need to query abstract factories; the service is mapped explicitly
+     *   2. Once the factory is loaded for any object, it stays in memory for any other service using the same factory
+     *
+     * @see http://zendframework.github.io/zend-servicemanager/configuring-the-service-manager/#factories
+     *
+     *
+     * @param ContainerInterface $container
+     * @param FQCN $requestedName
+     * @param array $options
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $router   = $container->get(RouterInterface::class);
+        $router = $container->get(RouterInterface::class);
         $template = ($container->has(TemplateRendererInterface::class))
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        return new DashboardPageAction($router, $template);
+        return new $requestedName($router, $template);
     }
 }
