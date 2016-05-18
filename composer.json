@@ -13,9 +13,7 @@
     ],
     "require": {
         "php": "^5.6 || ^7.0",
-        "roave/security-advisories": "dev-master"
-    },
-    "require-dev": {        
+        "roave/security-advisories": "dev-master",
         "zendframework/zend-router": "^3.0",
         "zendframework/zend-navigation": "^2.7",
         "zendframework/zend-config": "^2.6",
@@ -23,7 +21,9 @@
         "zendframework/zend-expressive": "^1.0",
         "zendframework/zend-expressive-helpers": "^2.0",
         "zendframework/zend-expressive-zendviewrenderer": "^1.1",
-        "zendframework/zend-expressive-zendrouter": "^1.0",
+        "zendframework/zend-expressive-zendrouter": "^1.0"
+    },
+    "require-dev": {
         "phpunit/phpunit": "^5.3",
         "phpunit/php-invoker": "^1.1",
         "squizlabs/php_codesniffer": "^2.3",
@@ -46,6 +46,10 @@
         "coding-matters": {
             "component": "Academe\\Scholarship",
             "config-provider": "Academe\\Scholarship\\Module"
+        },
+        "branch-alias": {
+            "dev-master": "1.0-alpha",
+            "dev-develop": "1.0-dev"
         }
     },
     "scripts": {
