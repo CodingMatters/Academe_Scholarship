@@ -48,7 +48,6 @@
             "config-provider": "Academe\\Scholarship\\Module"
         },
         "branch-alias": {
-            "dev-master": "1.0-alpha",
             "dev-develop": "1.0-dev"
         }
     },
