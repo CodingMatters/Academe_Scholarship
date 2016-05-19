@@ -27,6 +27,7 @@
 
 namespace Academe\Scholarship\Page;
 
+use CodingMatters\Kernel\Page\AbstractPage;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\RouterInterface;
