@@ -12,5 +12,5 @@ return [
             ],
             'priority' => PHP_INT_MAX,
         ],
-    ],
+        ],
 ];
